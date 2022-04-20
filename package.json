@@ -1,0 +1,15 @@
+{
+    "name": "share-a-meal-api",
+    "version": "1.0.0",
+    "description": "Share a meal backend api",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3"
+    }
+}
