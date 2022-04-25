@@ -14,4 +14,12 @@ router.use('/api/users', userRoutes);
 // Auth endpoints
 router.use('/api/auth', authRoutes);
 
+// Handle whenever a requested route does not exist
+router.all('*', (req, res) => {
+    res.status(404).send({
+        status: 404,
+        error: `Requested route was not found`
+    })
+})
+
 module.exports = router;
