@@ -2,6 +2,8 @@ const express = require('express');
 const db = require('../../database/user')
 const router = express.Router();
 
+const exists = require('../../middleware/doesRecordExist');
+
 // UC-201: Register a new user
 router.post('', (req, res) => {
     db.insertUser(req.body).then((users) => {
@@ -41,7 +43,7 @@ router.get('/profile', (req, res) => {
 });
 
 // UC-204: Retrieve a user by its id
-router.get('/:id', (req, res) => {
+router.get('/:id', [exists.doesUserExist], (req, res) => {
     db.retrieveUserByID(req.params.id).then((user) => {
         res.status(200).send({
             status: 200,
@@ -56,7 +58,7 @@ router.get('/:id', (req, res) => {
 });
 
 // UC-205: Update a user
-router.put('/:id', (req, res) => {
+router.put('/:id', [exists.doesUserExist] ,(req, res) => {
     db.updateUser(req.params.id, req.body).then((user) => {
         res.status(200).send({
             status: 200,
@@ -71,7 +73,7 @@ router.put('/:id', (req, res) => {
 });
 
 // UC-206: Delete a user
-router.delete('/:id', (req, res) => {
+router.delete('/:id', [exists.doesUserExist], (req, res) => {
     db.deleteUser(req.params.id).then((user) => {
         res.status(200).send({
             status: 200,
