@@ -3,13 +3,17 @@ const db = require('../../database/user')
 const router = express.Router();
 
 const exists = require('../../middleware/doesRecordExist');
+const validateRequestBody = require('../../middleware/validateRequestBody');
 
 // UC-201: Register a new user
-router.post('', (req, res) => {
-    db.insertUser(req.body).then((users) => {
+router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], (req, res) => {
+    db.insertUser(req.body).then((user) => {
         res.status(201).send({
             status: 201,
-            result: users
+            result: {
+                id: user.insertId,
+                ...req.body
+            }
         });
     }).catch((err) => {
         res.status(400).send({
@@ -43,7 +47,7 @@ router.get('/profile', (req, res) => {
 });
 
 // UC-204: Retrieve a user by its id
-router.get('/:id', [exists.doesUserExist], (req, res) => {
+router.get('/:id', [exists.doesUserWithIDExist], (req, res) => {
     db.retrieveUserByID(req.params.id).then((user) => {
         res.status(200).send({
             status: 200,
@@ -58,7 +62,7 @@ router.get('/:id', [exists.doesUserExist], (req, res) => {
 });
 
 // UC-205: Update a user
-router.put('/:id', [exists.doesUserExist] ,(req, res) => {
+router.put('/:id', [exists.doesUserWithIDExist], (req, res) => {
     db.updateUser(req.params.id, req.body).then((user) => {
         res.status(200).send({
             status: 200,
@@ -73,7 +77,7 @@ router.put('/:id', [exists.doesUserExist] ,(req, res) => {
 });
 
 // UC-206: Delete a user
-router.delete('/:id', [exists.doesUserExist], (req, res) => {
+router.delete('/:id', [exists.doesUserWithIDExist], (req, res) => {
     db.deleteUser(req.params.id).then((user) => {
         res.status(200).send({
             status: 200,
