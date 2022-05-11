@@ -16,8 +16,8 @@ const doesUserWithIDExist = (req, res, next) => {
             let status
             if (req.method == "GET") status = 404;
 
-            res.status(status || 409).send({
-                status: status || 409,
+            res.status(status || 400).send({
+                status: status || 400,
                 message: 'User does not exist'
             });
         }

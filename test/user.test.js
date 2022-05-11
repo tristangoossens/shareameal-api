@@ -242,8 +242,8 @@ describe('Share a meal API', () => {
             chai.request(server).get('/api/user/10').end((err, res) => {
                 assert.ifError(err)
 
-                // Check if a 400 status code was returned with an error
-                res.should.have.status(400)
+                // Check if a 404 status code was returned with an error
+                res.should.have.status(404)
                 res.should.be.an('object')
                 res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
