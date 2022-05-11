@@ -6,10 +6,10 @@ const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 
 // Meal endpoints
-router.use('/api/meals', mealRoutes);
+router.use('/api/meal', mealRoutes);
 
 // User endpoints
-router.use('/api/users', userRoutes);
+router.use('/api/user', userRoutes);
 
 // Auth endpoints
 router.use('/api/auth', authRoutes);

@@ -17,3 +17,5 @@ app.use(router);
 app.listen(process.env.PORT, () => {
     console.log(`shareameal-api listening on port ${process.env.PORT}`)
 })
+
+module.exports = app;
