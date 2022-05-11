@@ -8,16 +8,16 @@ const validateRequestBody = require('../../middleware/validateRequestBody');
 // UC-201: Register a new user
 router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], (req, res) => {
     db.insertUser(req.body).then((user) => {
-        res.status(201).send({
-            status: 201,
+        res.status(200).send({
+            status: 200,
             result: {
                 id: user.insertId,
                 ...req.body
             }
         });
     }).catch((err) => {
-        res.status(400).send({
-            status: 400,
+        res.status(500).send({
+            status: 500,
             error: err
         });
     })
@@ -54,23 +54,26 @@ router.get('/:id', [exists.doesUserWithIDExist], (req, res) => {
             result: user
         });
     }).catch((err) => {
-        res.status(404).send({
-            status: 404,
+        res.status(500).send({
+            status: 500,
             error: err
         });
     })
 });
 
 // UC-205: Update a user
-router.put('/:id', [exists.doesUserWithIDExist], (req, res) => {
-    db.updateUser(req.params.id, req.body).then((user) => {
+router.put('/:id', [exists.doesUserWithIDExist, validateRequestBody.userBody], (req, res) => {
+    db.updateUser(req.params.id, req.body).then((_) => {
         res.status(200).send({
             status: 200,
-            result: user
+            result: {
+                id: req.params.id,
+                ...req.body
+            }
         });
     }).catch((err) => {
-        res.status(404).send({
-            status: 404,
+        res.status(500).send({
+            status: 500,
             error: err
         });
     })
@@ -81,11 +84,11 @@ router.delete('/:id', [exists.doesUserWithIDExist], (req, res) => {
     db.deleteUser(req.params.id).then((user) => {
         res.status(200).send({
             status: 200,
-            result: user
+            result: `User with id '${req.params.id}' has been deleted`
         });
     }).catch((err) => {
-        res.status(404).send({
-            status: 404,
+        res.status(500).send({
+            status: 500,
             error: err
         });
     })
