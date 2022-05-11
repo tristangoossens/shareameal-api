@@ -84,7 +84,7 @@ router.delete('/:id', [exists.doesUserWithIDExist], (req, res) => {
     db.deleteUser(req.params.id).then((user) => {
         res.status(200).send({
             status: 200,
-            result: `User with id '${req.params.id}' has been deleted`
+            message: `User with id '${req.params.id}' has been deleted`
         });
     }).catch((err) => {
         res.status(500).send({
