@@ -2,17 +2,18 @@ const assert = require('assert');
 
 const userBody = (req, res, next) => {
     try {
-        const { firstName, lastName, street, city, password, emailAdress } = req.body;
+        const { firstName, lastName, street, city, password, emailAdress, phoneNumber } = req.body;
 
 
-        assert.equal(typeof firstName == 'string', 'Firstname must be in string format');
-        assert.equal(typeof lastName == 'string', 'Lastname must be in string format');
-        assert.equal(typeof street == 'string', 'Street must be in string format');
-        assert.equal(typeof city == 'string', 'City must be in string format');
-        assert.equal(typeof password == 'string', 'Password must be in string format');
-        assert.equal(typeof emailAdress == 'string', 'Email must be in string format');
+        assert(typeof firstName === 'string', 'Firstname must be in string format');
+        assert(typeof lastName === 'string', 'Lastname must be in string format');
+        assert(typeof street === 'string', 'Street must be in string format');
+        assert(typeof city === 'string', 'City must be in string format');
+        assert(typeof password === 'string', 'Password must be in string format');
+        assert(typeof emailAdress === 'string', 'Email must be in string format');
+        assert(typeof phoneNumber === 'string', 'Phonenumber must be in string format');
 
-        next()
+        next();
     } catch (err) {
         res.status(400).send({
             status: 400,
