@@ -8,8 +8,8 @@ const validateRequestBody = require('../../middleware/validateRequestBody');
 // UC-201: Register a new user
 router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], (req, res) => {
     db.insertUser(req.body).then((user) => {
-        res.status(200).send({
-            status: 200,
+        res.status(201).send({
+            status: 201,
             result: {
                 id: user.insertId,
                 ...req.body
@@ -18,7 +18,7 @@ router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], (
     }).catch((err) => {
         res.status(500).send({
             status: 500,
-            error: err
+            message: err
         });
     })
 });
@@ -33,7 +33,7 @@ router.get('', (req, res) => {
     }).catch((err) => {
         res.status(500).send({
             status: 500,
-            error: err
+            message: err
         });
     })
 });
@@ -42,7 +42,7 @@ router.get('', (req, res) => {
 router.get('/profile', (req, res) => {
     res.status(501).send({
         status: 501,
-        error: 'This endpoint is yet to be implemented into this API'
+        message: 'This endpoint is yet to be implemented into this API'
     })
 });
 
@@ -56,7 +56,7 @@ router.get('/:id', [exists.doesUserWithIDExist], (req, res) => {
     }).catch((err) => {
         res.status(500).send({
             status: 500,
-            error: err
+            message: err
         });
     })
 });
@@ -74,7 +74,7 @@ router.put('/:id', [exists.doesUserWithIDExist, validateRequestBody.userBody], (
     }).catch((err) => {
         res.status(500).send({
             status: 500,
-            error: err
+            message: err
         });
     })
 });
@@ -89,7 +89,7 @@ router.delete('/:id', [exists.doesUserWithIDExist], (req, res) => {
     }).catch((err) => {
         res.status(500).send({
             status: 500,
-            error: err
+            message: err
         });
     })
 });

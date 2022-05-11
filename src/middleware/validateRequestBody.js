@@ -16,7 +16,7 @@ const userBody = (req, res, next) => {
     } catch (err) {
         res.status(400).send({
             status: 400,
-            error: err.message
+            message: err.message
         })
     }
 }
