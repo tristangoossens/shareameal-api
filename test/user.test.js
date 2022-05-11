@@ -459,11 +459,11 @@ describe('Share a meal API', () => {
                 res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, result } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the response message is correct
-                result.should.equal(message, `User with id '1' has been deleted`)
+                message.should.equal(message, `User with id '1' has been deleted`)
 
                 done()
             })
