@@ -13,9 +13,12 @@ const doesUserWithIDExist = (req, res, next) => {
         if (exists) {
             next();
         } else {
-            res.status(400).send({
-                status: 400,
-                message: `Requested user with id '${req.params.id}' was not found`
+            let status
+            if (req.method == "GET") status = 404;
+
+            res.status(status || 400).send({
+                status: status || 400,
+                message: 'User does not exist'
             });
         }
     });
