@@ -65,14 +65,14 @@ describe('Share a meal API', () => {
                 // Check if a 400 status code was returned with an error message
                 res.should.have.status(400)
                 res.should.be.an('object')
-                res.body.should.be.an('object').that.has.all.keys('status', 'error')
+                res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, error } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the error message is correct
-                error.should.be.an('string').that.contains('Firstname must be in string format');
+                message.should.be.an('string').that.contains('Firstname must be in string format');
 
                 done()
             })
@@ -91,14 +91,14 @@ describe('Share a meal API', () => {
                 // Check if a 409 status code was returned with an error message
                 res.should.have.status(409)
                 res.should.be.an('object')
-                res.body.should.be.an('object').that.has.all.keys('status', 'error')
+                res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, error } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the error message is correct
-                error.should.be.an('string').that.contains(`Requested user with email 'test@mail.com' already exists`);
+                message.should.be.an('string').that.contains(`Requested user with email 'test@mail.com' already exists`);
 
                 done()
             })
@@ -108,8 +108,8 @@ describe('Share a meal API', () => {
             chai.request(server).post('/api/user').send(userToInsert).end((err, res) => {
                 assert.ifError(err)
 
-                // Check if a succesful response of 200 was received
-                res.should.have.status(200)
+                // Check if a succesful response of 201 was received
+                res.should.have.status(201)
                 res.should.be.an('object')
                 res.body.should.be.an('object').that.has.all.keys('status', 'result');
 
@@ -201,14 +201,14 @@ describe('Share a meal API', () => {
                 // Check if a 501 status code was returned with a not implemented error
                 res.should.have.status(501)
                 res.should.be.an('object')
-                res.body.should.be.an('object').that.has.all.keys('status', 'error')
+                res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, error } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the error message is correct
-                error.should.equal(error, 'This endpoint is yet to be implemented into this API')
+                message.should.equal(message, 'This endpoint is yet to be implemented into this API')
 
                 done()
             })
@@ -245,14 +245,14 @@ describe('Share a meal API', () => {
                 // Check if a 400 status code was returned with an error
                 res.should.have.status(400)
                 res.should.be.an('object')
-                res.body.should.be.an('object').that.has.all.keys('status', 'error')
+                res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, error } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the error message is correct
-                error.should.equal(error, `Requested user with id '10' was not found`)
+                message.should.equal(message, `Requested user with id '10' was not found`)
 
                 done()
             })
@@ -339,14 +339,14 @@ describe('Share a meal API', () => {
                 // Check if a 400 status code was returned with an error
                 res.should.have.status(400)
                 res.should.be.an('object')
-                res.body.should.be.an('object').that.has.all.keys('status', 'error')
+                res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, error } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the error message is correct
-                error.should.equal(error, 'City must be in string format')
+                message.should.equal(message, 'City must be in string format')
 
                 done()
             })
@@ -360,14 +360,14 @@ describe('Share a meal API', () => {
                 // Check if a 400 status code was returned with an error
                 res.should.have.status(400)
                 res.should.be.an('object')
-                res.body.should.be.an('object').that.has.all.keys('status', 'error')
+                res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, error } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the error message is correct
-                error.should.equal(error, `Requested user with id '10' was not found`)
+                message.should.equal(message, `Requested user with id '10' was not found`)
 
                 done()
             })
@@ -436,14 +436,14 @@ describe('Share a meal API', () => {
                 // Check if a 200 status code was returned with a response body
                 res.should.have.status(400)
                 res.should.be.an('object')
-                res.body.should.be.an('object').that.has.all.keys('status', 'error')
+                res.body.should.be.an('object').that.has.all.keys('status', 'message')
 
                 // Disect response object
-                let { status, error } = res.body
+                let { status, message } = res.body
                 status.should.be.an('number')
 
                 // Check if the error message is correct
-                error.should.equal(error, `Requested user with id '10' was not found`)
+                message.should.equal(message, `Requested user with id '10' was not found`)
 
                 done()
             })
