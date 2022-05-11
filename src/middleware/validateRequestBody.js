@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const userBody = (req, res, next) => {
     try {
-        const { firstName, lastName, street, city, password, emailAdress, phoneNumber } = req.body;
+        const { firstName, lastName, street, city, password, emailAdress } = req.body;
 
 
         assert(typeof firstName === 'string', 'Firstname must be in string format');
@@ -11,7 +11,6 @@ const userBody = (req, res, next) => {
         assert(typeof city === 'string', 'City must be in string format');
         assert(typeof password === 'string', 'Password must be in string format');
         assert(typeof emailAdress === 'string', 'Email must be in string format');
-        assert(typeof phoneNumber === 'string', 'Phonenumber must be in string format');
 
         next();
     } catch (err) {
