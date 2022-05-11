@@ -8,7 +8,7 @@ const db = require('../../config/db');
 const retrieveUsers = () => {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM `user`', (err, result) => {
-            if(err){
+            if (err) {
                 reject(err.message);
             }
 
@@ -26,11 +26,11 @@ const retrieveUsers = () => {
 const retrieveUserByID = (id) => {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM `user` WHERE `id` = ?', [id], (err, result) => {
-            if(err){
+            if (err) {
                 reject(err.message);
             }
 
-            resolve(result);
+            resolve(result[0]);
         })
     })
 }
@@ -44,7 +44,7 @@ const retrieveUserByID = (id) => {
 const insertUser = (body) => {
     return new Promise((resolve, reject) => {
         db.query('INSERT INTO `user` SET ?', [body], (err, result) => {
-            if(err) {
+            if (err) {
                 reject(err);
             }
 
@@ -63,7 +63,7 @@ const insertUser = (body) => {
 const updateUser = (userId, body) => {
     return new Promise((resolve, reject) => {
         db.query('UPDATE `user` SET ? WHERE `id` = ?', [body, userId], (err, result) => {
-            if(err){
+            if (err) {
                 reject(err);
             }
 
@@ -81,7 +81,7 @@ const updateUser = (userId, body) => {
 const deleteUser = (id) => {
     return new Promise((resolve, reject) => {
         db.query('DELETE FROM `user` WHERE `id` = ?', [id], (err, result) => {
-            if(err){
+            if (err) {
                 reject(err);
             }
 
