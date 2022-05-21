@@ -1,5 +1,2 @@
 # Package files
 /node_modules
-
-# Local environment variables
-.env
