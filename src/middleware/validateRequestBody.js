@@ -22,7 +22,7 @@ const userBody = (req, res, next) => {
 
         // If phonenumber is set check the regex
         if (phoneNumber) {
-            const phoneNumberRegex = new RegExp(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/);
+            const phoneNumberRegex = new RegExp(/^\(?([+]31|0031|0)-?6(\s?|-)([0-9]\s{0,3}){8}$/);
             assert.match(phoneNumber, phoneNumberRegex, 'Phonenumber must be in valid phonenumber format')
         }
 
