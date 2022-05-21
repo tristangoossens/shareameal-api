@@ -31,6 +31,25 @@ const doesUserWithEmailExist = (req, res, next) => {
         }
 
         const exists = Boolean(resp[0].c)
+        if (exists) {
+            next();
+        } else {
+            res.status(404).send({
+                message: 'User does not exist'
+            });
+        }
+    });
+}
+
+const isUserWithEmailDuplicate = (req, res, next) => {
+    db.query('SELECT COUNT(*) AS c FROM `user` WHERE `emailAdress` = ?', [req.body.emailAdress], (err, resp) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message
+            })
+        }
+
+        const exists = Boolean(resp[0].c)
         if (!exists) {
             next();
         } else {
@@ -45,4 +64,5 @@ const doesUserWithEmailExist = (req, res, next) => {
 module.exports = {
     doesUserWithIDExist,
     doesUserWithEmailExist,
+    isUserWithEmailDuplicate,
 }
