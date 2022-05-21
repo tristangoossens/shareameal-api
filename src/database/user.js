@@ -7,12 +7,17 @@ const db = require('../../config/db');
  */
 const retrieveUsers = () => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM `user`', (err, result) => {
-            if (err) {
-                reject(err.message);
-            }
+        db.getConnection((err, conn) => {
+            if (err) reject(err.message);
 
-            resolve(result);
+            conn.query('SELECT * FROM `user`', (err, result) => {
+                if (err) {
+                    reject(err.message);
+                }
+
+                resolve(result);
+                conn.release();
+            })
         })
     });
 }
@@ -25,13 +30,19 @@ const retrieveUsers = () => {
  */
 const retrieveUserByID = (id) => {
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM `user` WHERE `id` = ?', [id], (err, result) => {
-            if (err) {
-                reject(err.message);
-            }
+        db.getConnection((err, conn) => {
+            if (err) reject(err.message);
 
-            resolve(result[0]);
-        })
+            conn.query('SELECT * FROM `user` WHERE `id` = ?', [id], (err, result) => {
+                if (err) {
+                    reject(err.message);
+                }
+
+                resolve(result[0]);
+                conn.release();
+            })
+        });
+
     })
 }
 
@@ -43,13 +54,18 @@ const retrieveUserByID = (id) => {
  */
 const insertUser = (body) => {
     return new Promise((resolve, reject) => {
-        db.query('INSERT INTO `user` SET ?', [body], (err, result) => {
-            if (err) {
-                reject(err);
-            }
+        db.getConnection((err, conn) => {
+            if (err) reject(err.message);
 
-            resolve(result);
-        })
+            conn.query('INSERT INTO `user` SET ?', [body], (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+
+                resolve(result);
+                conn.release();
+            })
+        });
     })
 }
 
@@ -62,13 +78,18 @@ const insertUser = (body) => {
  */
 const updateUser = (userId, body) => {
     return new Promise((resolve, reject) => {
-        db.query('UPDATE `user` SET ? WHERE `id` = ?', [body, userId], (err, result) => {
-            if (err) {
-                reject(err);
-            }
+        db.getConnection((err, conn) => {
+            if (err) reject(err.message);
 
-            resolve(result);
-        })
+            conn.query('UPDATE `user` SET ? WHERE `id` = ?', [body, userId], (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+
+                resolve(result);
+                conn.release();
+            })
+        });
     })
 }
 
@@ -80,13 +101,19 @@ const updateUser = (userId, body) => {
  */
 const deleteUser = (id) => {
     return new Promise((resolve, reject) => {
-        db.query('DELETE FROM `user` WHERE `id` = ?', [id], (err, result) => {
-            if (err) {
-                reject(err);
-            }
+        db.getConnection((err, conn) => {
+            if (err) reject(err.message);
 
-            resolve(result);
-        })
+            conn.query('DELETE FROM `user` WHERE `id` = ?', [id], (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+
+                resolve(result);
+                conn.release();
+            })
+        });
+
     })
 }
 
