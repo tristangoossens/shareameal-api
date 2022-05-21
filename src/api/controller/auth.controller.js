@@ -10,6 +10,8 @@ const login = (req, res) => {
             const payload = { userID: userInfo.id }
 
             jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '12d' }, ((_, token) => {
+                userInfo.isActive = !!parseInt(userInfo.isActive);
+
                 res.status(200).send({
                     result: {
                         ...userInfo,

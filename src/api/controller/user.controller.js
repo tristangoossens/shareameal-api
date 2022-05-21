@@ -19,8 +19,14 @@ const listUsers = (req, res) => {
     const { offset, limit, ...searchParams } = req.query;
 
     db.retrieveUsers(parseInt(offset || 0), parseInt(limit || 100), searchParams).then((users) => {
+        const usersWithActiveBoolean = users.map((user) => {
+            const temp = Object.assign({}, user);
+            temp.isActive = !!parseInt(user.isActive);
+            return temp
+        })
+
         res.status(200).send({
-            result: users
+            result: usersWithActiveBoolean
         });
     }).catch((err) => {
         res.status(500).send({
@@ -31,6 +37,8 @@ const listUsers = (req, res) => {
 
 const getUserById = (req, res) => {
     db.retrieveUserByID(req.params.id).then((user) => {
+        user.isActive = !!parseInt(user.isActive);
+
         res.status(200).send({
             result: user
         });
@@ -43,6 +51,8 @@ const getUserById = (req, res) => {
 
 const getUserProfile = (req, res) => {
     db.retrieveUserByID(req.userID).then((user) => {
+        user.isActive = !!parseInt(user.isActive);
+
         res.status(200).send({
             result: user
         });
