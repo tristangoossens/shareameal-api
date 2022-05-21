@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const userBody = (req, res, next) => {
     try {
-        const { firstName, lastName, street, city, password, emailAdress } = req.body;
+        const { firstName, lastName, street, city, password, emailAdress, phoneNumber } = req.body;
 
 
         assert(typeof firstName === 'string', 'Firstname must be in string format');
@@ -19,6 +19,12 @@ const userBody = (req, res, next) => {
         // Extra validation for email
         const passwordRegex = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
         assert.match(password, passwordRegex, 'Password must be 8 characters long and contain a number and a letter')
+
+        // If phonenumber is set check the regex
+        if (phoneNumber) {
+            const phoneNumberRegex = new RegExp(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/);
+            assert.match(phoneNumber, phoneNumberRegex, 'Phonenumber must be in valid phonenumber format')
+        }
 
         next();
     } catch (err) {
