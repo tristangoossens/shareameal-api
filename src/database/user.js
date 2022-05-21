@@ -5,12 +5,25 @@ const db = require('../../config/db');
  * 
  * @returns List of users
  */
-const retrieveUsers = () => {
+const retrieveUsers = (offset, limit, searchQueries) => {
     return new Promise((resolve, reject) => {
         db.getConnection((err, conn) => {
             if (err) reject(err.message);
 
-            conn.query('SELECT * FROM `user`', (err, result) => {
+            let { isActive, firstName } = searchQueries;
+            let queryString = 'SELECT * FROM `user`'
+            if (firstName || isActive) {
+                queryString += ' WHERE '
+                if (firstName) {
+                    queryString += `firstName LIKE '%${firstName}%'`
+                }
+                if (firstName && isActive) queryString += ' AND '
+                if (isActive) {
+                    queryString += '`isActive` = ' + isActive;
+                }
+            }
+
+            conn.query(`${queryString} LIMIT ?, ?`, [offset, limit], (err, result) => {
                 if (err) {
                     reject(err.message);
                 }
