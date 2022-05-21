@@ -9,7 +9,6 @@ const validateRequestBody = require('../../middleware/validateRequestBody');
 router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], (req, res) => {
     db.insertUser(req.body).then((user) => {
         res.status(201).send({
-            status: 201,
             result: {
                 id: user.insertId,
                 ...req.body
@@ -17,7 +16,6 @@ router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], (
         });
     }).catch((err) => {
         res.status(500).send({
-            status: 500,
             message: err
         });
     })
@@ -27,12 +25,10 @@ router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], (
 router.get('', (req, res) => {
     db.retrieveUsers().then((users) => {
         res.status(200).send({
-            status: 200,
             result: users
         });
     }).catch((err) => {
         res.status(500).send({
-            status: 500,
             message: err
         });
     })
@@ -41,7 +37,6 @@ router.get('', (req, res) => {
 // UC-203: Request your personal user profile
 router.get('/profile', (req, res) => {
     res.status(501).send({
-        status: 501,
         message: 'This endpoint is yet to be implemented into this API'
     })
 });
@@ -50,12 +45,10 @@ router.get('/profile', (req, res) => {
 router.get('/:id', [exists.doesUserWithIDExist], (req, res) => {
     db.retrieveUserByID(req.params.id).then((user) => {
         res.status(200).send({
-            status: 200,
             result: user
         });
     }).catch((err) => {
         res.status(500).send({
-            status: 500,
             message: err
         });
     })
@@ -65,7 +58,6 @@ router.get('/:id', [exists.doesUserWithIDExist], (req, res) => {
 router.put('/:id', [exists.doesUserWithIDExist, validateRequestBody.userBody], (req, res) => {
     db.updateUser(req.params.id, req.body).then((_) => {
         res.status(200).send({
-            status: 200,
             result: {
                 id: req.params.id,
                 ...req.body
@@ -73,7 +65,6 @@ router.put('/:id', [exists.doesUserWithIDExist, validateRequestBody.userBody], (
         });
     }).catch((err) => {
         res.status(500).send({
-            status: 500,
             message: err
         });
     })
@@ -83,12 +74,10 @@ router.put('/:id', [exists.doesUserWithIDExist, validateRequestBody.userBody], (
 router.delete('/:id', [exists.doesUserWithIDExist], (req, res) => {
     db.deleteUser(req.params.id).then((user) => {
         res.status(200).send({
-            status: 200,
             message: `User with id '${req.params.id}' has been deleted`
         });
     }).catch((err) => {
         res.status(500).send({
-            status: 500,
             message: err
         });
     })
