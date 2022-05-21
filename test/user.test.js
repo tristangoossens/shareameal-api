@@ -16,7 +16,7 @@ const dummyUserQuery = (email) => {
 }
 
 
-describe('Share a meal API', () => {
+describe('ShareAMeal User routes', () => {
     describe('UC-201 Register a new user', () => {
         const userToInsert = {
             firstName: "Test",
