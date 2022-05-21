@@ -16,7 +16,9 @@ const insertUser = (req, res) => {
 }
 
 const listUsers = (req, res) => {
-    db.retrieveUsers().then((users) => {
+    const { offset, limit, ...searchParams } = req.query;
+
+    db.retrieveUsers(parseInt(offset || 0), parseInt(limit || 100), searchParams).then((users) => {
         res.status(200).send({
             result: users
         });
@@ -40,8 +42,14 @@ const getUserById = (req, res) => {
 }
 
 const getUserProfile = (req, res) => {
-    res.status(501).send({
-        message: 'This endpoint is yet to be implemented into this API'
+    db.retrieveUserByID(req.userID).then((user) => {
+        res.status(200).send({
+            result: user
+        });
+    }).catch((err) => {
+        res.status(500).send({
+            message: err
+        });
     })
 }
 
