@@ -12,7 +12,7 @@ chai.use(chaiHttp)
 const clearQuery = 'DELETE IGNORE FROM `meal`; DELETE IGNORE FROM `meal_participants_user`; DELETE IGNORE FROM `user`; ALTER TABLE `user` AUTO_INCREMENT = 1;';
 const dummyUserQuery = (email) => {
     return `INSERT INTO user (id, firstName, lastName, emailAdress, password, street, city)
-    VALUES (0, "Test", "Tester", "${email}", "mooi123", "Teststraat 14", "Pietstad");`
+    VALUES (0, "Test", "Tester", "${email}", "Test1234", "Teststraat 14", "Pietstad");`
 }
 
 
@@ -24,7 +24,7 @@ describe('ShareAMeal User routes', () => {
             street: "Teststraat 14",
             city: "Pietstad",
             emailAdress: "y.pieters@student.avans.nl",
-            password: "mooi123",
+            password: "Test1234",
             phoneNumber: "06 12425475"
         }
 
@@ -274,7 +274,7 @@ describe('ShareAMeal User routes', () => {
                     isActive: 1,
                     roles: "editor,guest",
                     emailAdress: "test@mail.com",
-                    password: "mooi123",
+                    password: "Test1234",
                 }
 
                 // Check if the response is equal to the expected repsonse
@@ -292,7 +292,7 @@ describe('ShareAMeal User routes', () => {
             street: "Teststraat 14",
             city: "Pietstad",
             emailAdress: "testing@mail.com",
-            password: "mooi123",
+            password: "Test1234",
             phoneNumber: "06 12425475"
         }
 
