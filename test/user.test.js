@@ -564,6 +564,31 @@ describe('ShareAMeal User routes', () => {
             })
         });
 
+        it('TC-205-3 should return an error when passing invalid phone number', (done) => {
+            // Clone existing object
+            const user = Object.assign({}, userToUpdate);
+
+            // set phonenumber to invalid number
+            user.phoneNumber = "thisisnotaphonenumber";
+
+            chai.request(server).put('/api/user/1').send(user).set('authorization', `Bearer ${jwt.sign({ userID: 1 }, process.env.JWT_KEY)}`).end((err, res) => {
+                assert.ifError(err)
+
+                // Check if a 400 status code was returned with an error
+                res.should.have.status(400)
+                res.should.be.an('object')
+                res.body.should.be.an('object').that.has.all.keys('message')
+
+                // Disect response object
+                let { message } = res.body
+
+                // Check if the error message is correct
+                message.should.equal(message, 'Phonenumber must be in valid phonenumber format')
+
+                done()
+            })
+        });
+
 
         it('TC-205-4 updating a user that does not exist', (done) => {
             chai.request(server).put('/api/user/10').send(userToUpdate).set('authorization', `Bearer ${jwt.sign({ userID: 1 }, process.env.JWT_KEY)}`).end((err, res) => {
