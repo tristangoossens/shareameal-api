@@ -6,7 +6,7 @@ const exists = require('../../middleware/doesRecordExist');
 const validateRequestBody = require('../../middleware/validateRequestBody');
 
 // UC-201: Register a new user
-router.post('', [validateRequestBody.userBody, exists.doesUserWithEmailExist], controller.insertUser);
+router.post('', [validateRequestBody.userBody, exists.isUserWithEmailDuplicate], controller.insertUser);
 
 // UC-202: Retrieve a list of users
 router.get('', controller.listUsers);
