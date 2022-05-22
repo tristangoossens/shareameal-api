@@ -16,7 +16,7 @@ const dummyUserQuery = (email) => {
 }
 const dummyMealQuery = (cookId) => {
     return `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, name, description, allergenes, cookId)
-    VALUES (0, 1, 1, 1, 1, "2022-05-22 14:30:02", 6, 10.50, "https://www.google.com/", "Testmeal", "Lekkere testmaaltijd", "gluten, lactose", ${cookId});`;
+    VALUES (0, 1, 1, 1, 1, "2022-05-22 14:30:02", 6, 10.50, "https://www.google.com/", "Testmeal", "Lekkere testmaaltijd", 'gluten,lactose', ${cookId});`;
 }
 
 describe('ShareAMeal Participation routes', () => {
