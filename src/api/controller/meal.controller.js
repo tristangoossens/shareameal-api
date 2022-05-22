@@ -16,6 +16,11 @@ const retrieveMeals = (req, res) => {
 
 const retrieveMealByID = (req, res) => {
     db.retrieveMealByID(req.params.id).then((meal) => {
+        meal.isActive = !!parseInt(meal.isActive);
+        meal.isVega = !!parseInt(meal.isVega);
+        meal.isVegan = !!parseInt(meal.isVegan);
+        meal.isToTakeHome = !!parseInt(meal.isToTakeHome);
+
         res.status(200).send({
             result: meal
         });
