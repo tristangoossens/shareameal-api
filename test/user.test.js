@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 chai.should()
 chai.use(chaiHttp)
 
-const clearQuery = 'DELETE IGNORE FROM `meal`; DELETE IGNORE FROM `meal_participants_user`; DELETE IGNORE FROM `user`; ALTER TABLE `user` AUTO_INCREMENT = 1;';
+const clearQuery = 'DELETE IGNORE FROM `meal`; DELETE IGNORE FROM `meal_participants_user`; DELETE IGNORE FROM `user`; ALTER TABLE `meal` AUTO_INCREMENT = 1; ALTER TABLE `user` AUTO_INCREMENT = 1; ALTER TABLE `meal_participants_user` AUTO_INCREMENT = 1;';
 const dummyUserQuery = (email) => {
     return `INSERT INTO user (id, firstName, lastName, emailAdress, password, street, city)
     VALUES (0, "Test", "Tester", "${email}", "Test1234", "Teststraat 14", "Pietstad");`
