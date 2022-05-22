@@ -59,7 +59,7 @@ const loginBody = (req, res, next) => {
 
 const mealBody = (req, res, next) => {
     try {
-        const { name, description, isActive, isVega, isVegan, isToTakeHome, dateTime, imageUrl, cookId, allergenes, maxAmountOfParticipants, price } = req.body;
+        const { name, description, isActive, isVega, isVegan, isToTakeHome, dateTime, imageUrl, allergenes, maxAmountOfParticipants, price } = req.body;
 
         assert(typeof name === 'string', 'Name must be in string format');
         assert(typeof description === 'string', 'Description must be in string format');
@@ -69,7 +69,6 @@ const mealBody = (req, res, next) => {
         assert(typeof isToTakeHome === 'boolean', 'isToTakeHome must be in boolean format');
         assert(typeof dateTime === 'string', 'dateTime must be in string format');
         assert(typeof imageUrl === 'string', 'imageUrl must be in string format');
-        assert(typeof cookId === 'number', 'cookId must be in number format')
         assert.equal(Array.isArray(allergenes), true, 'allergenes must be in array format');
         assert(typeof maxAmountOfParticipants === 'number', 'maxAmountOfParticipants must be in number format');
         assert(typeof price === 'number', 'price must be in number format');
