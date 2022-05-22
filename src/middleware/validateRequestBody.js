@@ -57,7 +57,33 @@ const loginBody = (req, res, next) => {
     }
 }
 
+const mealBody = (req, res, next) => {
+    try {
+        const { name, description, isActive, isVega, isVegan, isToTakeHome, dateTime, imageUrl, cookId, allergenes, maxAmountOfParticipants, price } = req.body;
+
+        assert(typeof name === 'string', 'Name must be in string format');
+        assert(typeof description === 'string', 'Description must be in string format');
+        assert(typeof isActive === 'boolean', 'isActive must be in boolean format');
+        assert(typeof isVega === 'boolean', 'isVega must be in boolean format');
+        assert(typeof isVegan === 'boolean', 'isVegan must be in boolean format');
+        assert(typeof isToTakeHome === 'boolean', 'isToTakeHome must be in boolean format');
+        assert(typeof dateTime === 'string', 'dateTime must be in string format');
+        assert(typeof imageUrl === 'string', 'imageUrl must be in string format');
+        assert(typeof cookId === 'number', 'cookId must be in number format')
+        assert.equal(Array.isArray(allergenes), true, 'allergenes must be in array format');
+        assert(typeof maxAmountOfParticipants === 'number', 'maxAmountOfParticipants must be in number format');
+        assert(typeof price === 'number', 'price must be in number format');
+
+        next();
+    } catch (err) {
+        res.status(400).send({
+            message: err.message
+        })
+    }
+}
+
 module.exports = {
     userBody,
-    loginBody
+    loginBody,
+    mealBody
 }

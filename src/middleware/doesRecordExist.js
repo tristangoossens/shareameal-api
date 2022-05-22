@@ -60,9 +60,29 @@ const isUserWithEmailDuplicate = (req, res, next) => {
     });
 }
 
+const doesMealWithIdExist = (req, res, next) => {
+    db.query('SELECT COUNT(*) AS c FROM `meal` WHERE `id` = ?', [req.params.id], (err, resp) => {
+        if (err) {
+            res.status(500).send({
+                error: err.message
+            })
+        }
+
+        const exists = Boolean(resp[0].c);
+        if (exists) {
+            next();
+        } else {
+            res.status(404).send({
+                message: 'Meal does not exist'
+            });
+        }
+    });
+}
+
 
 module.exports = {
     doesUserWithIDExist,
     doesUserWithEmailExist,
     isUserWithEmailDuplicate,
+    doesMealWithIdExist
 }
