@@ -4,7 +4,6 @@ const server = require('../index')
 const database = require('../config/db')
 const jwt = require('jsonwebtoken');
 const assert = require('assert');
-const { send } = require('process');
 
 chai.should()
 chai.use(chaiHttp)

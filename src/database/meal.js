@@ -117,10 +117,63 @@ const deleteMeal = (id) => {
 }
 
 
+/**
+ * Participate in meal
+ * 
+ * @param mealId: ID of the meal that will be participated in
+ * @param userId: ID of the user
+ * @returns Object of the deleted meal
+ */
+const participateInMeal = (mealId, userId) => {
+    return new Promise((resolve, reject) => {
+        db.getConnection((err, conn) => {
+            if (err) reject(err.message);
+
+            conn.query('INSERT INTO `meal_participants_user` SET ?', [{ mealId: mealId, userId: userId }], (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+
+                resolve(result);
+                conn.release();
+            })
+        });
+
+    })
+}
+
+/**
+ * Revoke participation in meal
+ * 
+ * @param mealId: ID of the meal that will be participated in
+ * @param userId: ID of the user
+ * @returns Object of the deleted meal
+ */
+const revokeMealParticipation = (mealId, userId) => {
+    return new Promise((resolve, reject) => {
+        db.getConnection((err, conn) => {
+            if (err) reject(err.message);
+
+            conn.query('DELETE FROM `meal_participants_user` WHERE mealId = ? AND userId = ?', [mealId, userId], (err, result) => {
+                if (err) {
+                    console.log(err.message)
+                    reject(err);
+                }
+
+                resolve(result);
+                conn.release();
+            })
+        });
+
+    })
+}
+
 module.exports = {
     retrieveMeals,
     retrieveMealByID,
     insertMeal,
     updateMeal,
-    deleteMeal
+    deleteMeal,
+    participateInMeal,
+    revokeMealParticipation
 }

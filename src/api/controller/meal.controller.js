@@ -94,10 +94,39 @@ const deleteMeal = (req, res) => {
     })
 }
 
+const participateInMeal = (req, res) => {
+    db.participateInMeal(req.params.id, req.userID).then((participation) => {
+        res.status(200).send({
+            result: {
+                mealId: req.params.id,
+                userId: req.userID
+            }
+        });
+    }).catch((err) => {
+        res.status(500).send({
+            message: err
+        });
+    })
+}
+
+const removeParticipation = (req, res) => {
+    db.revokeMealParticipation(req.params.id, req.userID).then((_) => {
+        res.status(200).send({
+            message: `Participation for meal with id '${req.params.id}' has been revoked`
+        });
+    }).catch((err) => {
+        res.status(500).send({
+            message: err
+        });
+    })
+}
+
 module.exports = {
     retrieveMeals,
     retrieveMealByID,
     insertMeal,
     updateMeal,
-    deleteMeal
+    deleteMeal,
+    participateInMeal,
+    removeParticipation
 }

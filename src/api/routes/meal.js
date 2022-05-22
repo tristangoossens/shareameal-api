@@ -25,11 +25,10 @@ router.put('/:id', [validateJWT.validateToken, exists.doesMealWithIdExist, reque
 // UC-305: Delete a meal
 router.delete('/:id', [validateJWT.validateToken, exists.doesMealWithIdExist, modifyMiddleware.canUserModifyMeal], controller.deleteMeal);
 
-// UC-306: Participate in a meal
-router.post('/:id/participate', (req, res) => {
-    res.send({
-        message: `Participate in meal with id ${req.params.id}`
-    });
-});
+// UC-401: Participate in a meal
+router.post('/:id/participate', [validateJWT.validateToken, exists.doesMealWithIdExist], controller.participateInMeal);
+
+// UC-402: Revoke participation in a meal
+router.put('/:id/participate', [validateJWT.validateToken, exists.doesMealWithIdExist], controller.removeParticipation);
 
 module.exports = router;
