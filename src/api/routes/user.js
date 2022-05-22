@@ -20,10 +20,10 @@ router.get('/profile', [JWTmiddleware.validateToken], controller.getUserProfile)
 router.get('/:id', [JWTmiddleware.validateToken, exists.doesUserWithIDExist], controller.getUserById);
 
 // UC-205: Update a user
-router.put('/:id', [JWTmiddleware.validateToken, exists.doesUserWithIDExist, canEditMiddleware.canUserModify, validateRequestBody.userBody], controller.updateUser);
+router.put('/:id', [JWTmiddleware.validateToken, exists.doesUserWithIDExist, canEditMiddleware.canUserModifyUser, validateRequestBody.userBody], controller.updateUser);
 
 // UC-206: Delete a user
-router.delete('/:id', [JWTmiddleware.validateToken, exists.doesUserWithIDExist, canEditMiddleware.canUserModify], controller.deleteUser);
+router.delete('/:id', [JWTmiddleware.validateToken, exists.doesUserWithIDExist, canEditMiddleware.canUserModifyUser], controller.deleteUser);
 
 
 module.exports = router;
