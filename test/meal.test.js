@@ -8,7 +8,7 @@ const assert = require('assert');
 chai.should()
 chai.use(chaiHttp)
 
-const clearQuery = 'DELETE IGNORE FROM `meal`; DELETE IGNORE FROM `meal_participants_user`; DELETE IGNORE FROM `user`; ALTER TABLE `meal` AUTO_INCREMENT = 1; ALTER TABLE `user` AUTO_INCREMENT = 1;';
+const clearQuery = 'DELETE IGNORE FROM `meal`; DELETE IGNORE FROM `meal_participants_user`; DELETE IGNORE FROM `user`; ALTER TABLE `meal` AUTO_INCREMENT = 1; ALTER TABLE `user` AUTO_INCREMENT = 1; ALTER TABLE `meal_participants_user` AUTO_INCREMENT = 1;';
 
 const dummyUserQuery = (email) => {
     return `INSERT INTO user (id, firstName, lastName, emailAdress, password, street, city)
@@ -43,7 +43,7 @@ describe('ShareAMeal Meal routes', () => {
         before((done) => {
             database.getConnection((err, conn) => {
                 if (err) throw err;
-                conn.query(`${dummyUserQuery("test@mail.com")}`, (err, _) => {
+                conn.query(`${clearQuery} ${dummyUserQuery("test@mail.com")}`, (err, _) => {
                     if (err) throw err;
                     conn.release();
                     done();
