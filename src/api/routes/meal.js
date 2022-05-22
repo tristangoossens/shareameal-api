@@ -20,7 +20,7 @@ router.get('', controller.retrieveMeals);
 router.get('/:id', [exists.doesMealWithIdExist], controller.retrieveMealByID);
 
 // UC-304: Update a meal
-router.put('/:id', [validateJWT.validateToken, exists.doesMealWithIdExist, requestBody.mealBody], controller.updateMeal);
+router.put('/:id', [validateJWT.validateToken, exists.doesMealWithIdExist, requestBody.mealBody, modifyMiddleware.canUserModifyMeal], controller.updateMeal);
 
 // UC-305: Delete a meal
 router.delete('/:id', [validateJWT.validateToken, exists.doesMealWithIdExist, modifyMiddleware.canUserModifyMeal], controller.deleteMeal);
