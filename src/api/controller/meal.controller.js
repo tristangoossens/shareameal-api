@@ -36,6 +36,7 @@ const insertMeal = (req, res) => {
     dateTime = new Date(dateTime).toISOString().slice(0, 19).replace('T', ' ');
     req.body.dateTime = dateTime;
     req.body.allergenes = allergenes.toString();
+    req.body.cookId = req.userID;
 
     db.insertMeal(req.body).then((meal) => {
         req.body.allergenes = req.body.allergenes.split(',')
